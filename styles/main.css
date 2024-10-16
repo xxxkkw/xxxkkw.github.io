@@ -33,6 +33,25 @@ body{
     width: 100vw;
 }
 
+/* 文章页背景 */
+.layout_post>#post {
+    /* 以下代表透明度为0.5 可以自行修改*/
+    background: rgba(255,225,225,0.5);
+}
+
+/* 所有页面背景 */
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+    /* 以下代表透明度为0.5 */
+    background: rgba(255,255,255,0.5);
+}
+#web_bg {
+    background: #355C7D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C06C84, #6C5B7B, #355C7D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #C06C84, #6C5B7B, #355C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
 /* 侧边栏个人信息卡片动态渐变色 */
 #aside-content>.card-widget.card-info{
     background: linear-gradient(-45deg, rgba(255, 225, 245, 0.6),

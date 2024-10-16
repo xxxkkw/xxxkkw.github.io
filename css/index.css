@@ -1331,8 +1331,8 @@ canvas:not(#ribbon-canvas),
   --global-font-size: 14px;
   --global-bg: #fff;
   --font-color: #4c4948;
-  --hr-border: #a4d8fa;
-  --hr-before-color: #80c8f8;
+  --hr-border: #d2ebfd;
+  --hr-before-color: #bfe4fb;
   --search-bg: #f6f8fa;
   --search-input-color: #4c4948;
   --search-a-color: #4c4948;
@@ -1398,6 +1398,16 @@ body {
 }
 input::placeholder {
   color: var(--font-color);
+}
+#web_bg {
+  position: fixed;
+  z-index: -999;
+  width: 100%;
+  height: 100%;
+  background-attachment: local;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 h1,
 h2,
@@ -3318,7 +3328,7 @@ figure.highlight pre .javascript .function {
   content: '';
 }
 #page-header.full_page {
-  height: 400px;
+  height: 600px;
   background-attachment: fixed;
 }
 #page-header.full_page #site-info {
@@ -4272,7 +4282,7 @@ figure.highlight pre .javascript .function {
   overflow-wrap: break-word;
 }
 #article-container a {
-  color: #49b1f5;
+  color: #99a9bf;
 }
 #article-container a:hover {
   text-decoration: underline;
