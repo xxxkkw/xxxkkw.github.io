@@ -1,1 +1,170 @@
-#aside_content .card-widget,#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post{background:rgba(255,255,255,.5)}#web_bg{background:#F0F2F0;background:-webkit-linear-gradient(to bottom,#000C40,#F0F2F0);background:linear-gradient(to bottom,#000C40,#F0F2F0);min-height:100vh}#aside-content>.card-widget.card-announcement,#aside-content>.card-widget.card-info,[data-theme=dark] #aside-content>.card-widget.card-info{background:#ccb5b1;background:-webkit-linear-gradient(to right,#626985,#ccb5b1);background:linear-gradient(to right,#626985,#ccb5b1)}[data-theme=dark] #aside-content>.card-widget.card-announcement{background:#d8e1f1}#aside-content>.sticky_layout>.card-widget,[data-theme=dark] #aside-content>.sticky_layout>.card-widget{background:#ccb5b1;background:-webkit-linear-gradient(to right,#626985,#ccb5b1);background:linear-gradient(to right,#626985,#ccb5b1)}#aside-content>.card-widget.card-info>#card-info-btn{background-color:#3e89be;border-radius:8px}.layout>#post{background:#d8e1f1}[data-theme=dark] .layout>#post{background:linear-gradient(-45deg,rgba(24,40,72,.2),rgba(35,37,58,.9),rgba(35,37,58,.9),rgba(24,40,72,.2))}#aside-content .aside-list>.aside-list-item .content>time{display:block;color:#363636!important;font-size:.85em}#aside-content .card-tag-cloud a{color:#363636!important;display:inline-block;padding:0 4px;line-height:1.8}@media (prefers-color-scheme:dark){.v[data-class="v"] .status-bar,.v[data-class="v"] .veditor,.v[data-class="v"] .vinput,.v[data-class="v"] p,.v[data-class="v"] pre code{color:#363636!important}}.recent-post-items .recent-post-item{background-color:#d8e1f1!important;padding:15px;margin-bottom:10px;border-radius:8px}[data-theme=dark] #recent-posts>.recent-post-item{background:linear-gradient(-45deg,rgba(24,40,72,.2),rgba(35,37,58,.9),rgba(35,37,58,.9),rgba(24,40,72,.2))}.layout>#page{background:#ccb5b1;background:-webkit-linear-gradient(to right,#626985,#ccb5b1);background:linear-gradient(to right,#626985,#ccb5b1)}[data-theme=dark] .layout>#page{background:linear-gradient(-45deg,rgba(24,40,72,.2),rgba(35,37,58,.9),rgba(35,37,58,.9),rgba(24,40,72,.2))}.layout>#archive{background:linear-gradient(-45deg,rgba(225,235,255,.8),rgba(225,235,255,.9),rgba(225,235,255,.9),rgba(225,235,255,.8))}[data-theme=dark] .layout>#archive{background:linear-gradient(-45deg,rgba(24,40,72,.2),rgba(35,37,58,.9),rgba(35,37,58,.9),rgba(24,40,72,.2))}.copyright{color:#636fa4}
+
+/* 文章页背景 */
+.layout_post>#post {
+    /* 以下代表透明度为0.5 可以自行修改*/
+    background: rgba(255,225,225,0.5);
+}
+
+/* 所有页面背景 */
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+    /* 以下代表透明度为0.5 */
+    background: rgba(255,255,255,0.5);
+}
+#web_bg {
+    background: #F0F2F0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #000C40, #F0F2F0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #000C40, #F0F2F0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    min-height: 100vh;
+}
+/*
+#DBE6F6 219,230,246
+#3B4371 59,67,113
+#2C3E50 44,62,80
+#C4E0E5 196,224,229
+#4cA1AF 76,161,175
+ */
+
+/* 侧边栏个人信息卡片动态渐变色 */
+#aside-content>.card-widget.card-info{
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+[data-theme=dark] #aside-content>.card-widget.card-info {
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+/* 侧边栏公告栏卡片渐变色 */
+#aside-content>.card-widget.card-announcement{
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+[data-theme=dark] #aside-content>.card-widget.card-announcement{
+    background: #d8e1f1
+}
+/* 侧边栏目录最新文章卡片渐变色 */
+#aside-content>.sticky_layout>.card-widget{
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+[data-theme=dark] #aside-content>.sticky_layout>.card-widget{
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+/* 个人信息Follow me按钮 */
+#aside-content>.card-widget.card-info>#card-info-btn {
+    background-color: #3e89be;
+    border-radius: 8px;
+}
+/*文章页面*/
+.layout>#post {
+    background: #d8e1f1;  /* fallback for old browsers */
+}
+[data-theme=dark] .layout>#post {
+    background: linear-gradient(-45deg, rgba(24,40,72,.2),
+rgba(35,37,58,.9),
+rgba(35,37,58,.9),
+rgba(24,40,72,.2));
+}
+#aside-content .aside-list > .aside-list-item .content > time {
+    display: block;
+    color: #363636 !important;
+    font-size: .85em;
+}
+#aside-content .card-tag-cloud a {
+    color: #363636 !important;
+    display: inline-block;
+    padding: 0 4px;
+    line-height: 1.8;
+}
+@media (prefers-color-scheme: dark) {
+    .v[data-class="v"] .vinput, .v[data-class="v"] .veditor, .v[data-class="v"] p, .v[data-class="v"] pre code, .v[data-class="v"] .status-bar {
+        color: #363636 !important;
+    }
+}
+/*主页文章预览页面*/
+.recent-post-items .recent-post-item {
+    background-color: #d8e1f1 !important;  /* 选择你想要的背景颜色 */
+    padding: 15px;             /* 可选：增加一些内边距，使内容看起来更美观 */
+    margin-bottom: 10px;       /* 可选：为每个文章预览添加一些底部间距 */
+    border-radius: 8px;        /* 可选：为背景添加圆角 */
+}
+[data-theme=dark] #recent-posts>.recent-post-item{
+    background: linear-gradient(-45deg, rgba(24,40,72,.2),
+    rgba(35,37,58,.9),
+    rgba(35,37,58,.9),
+    rgba(24,40,72,.2));
+}
+
+/*分类页面*/
+.layout>#page {
+    background: #ccb5b1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgb(98, 105, 133), #ccb5b1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,rgb(98, 105, 133), #ccb5b1);
+}
+[data-theme=dark] .layout>#page {
+    background: linear-gradient(-45deg, rgba(24,40,72,.2),
+    rgba(35,37,58,.9),
+    rgba(35,37,58,.9),
+    rgba(24,40,72,.2));
+}
+
+/*时间轴页面*/
+.layout>#archive {
+    background: linear-gradient(-45deg, rgba(225,235,255,.8),
+    rgba(225,235,255,.9),
+    rgba(225,235,255,.9),
+    rgba(225,235,255,.8));
+}
+[data-theme=dark] .layout>#archive {
+    background: linear-gradient(-45deg, rgba(24,40,72,.2),
+    rgba(35,37,58,.9),
+    rgba(35,37,58,.9),
+    rgba(24,40,72,.2));
+}
+.copyright {
+    color: #636fa4;
+}
+#chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chat-history {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#chat-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#send-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#send-btn:hover {
+    background-color: #0056b3;
+}
+
