@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>基于4卡昇腾910B服务器部署DeepSeek的踩坑日志</title>
+      <link href="/2025/02/25/DeepSeek%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"/>
+      <url>/2025/02/25/DeepSeek%E9%83%A8%E7%BD%B2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<p>最近终于在昇腾910B的服务器上跑通了DeepSeek的模型，期间踩了无数的坑，记录一下这些折磨人的经历。<br>首先，学校的服务器虽然看上去是4卡910B，但实际上是910。坑爹，太坑爹了，既然是910那为什么npu-smi info会显示910B，你这不欺负老实人吗？</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+          <category> Ascend </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>鹰眼项目重构</title>
       <link href="/2025/02/19/EagleEyes/"/>
       <url>/2025/02/19/EagleEyes/</url>
@@ -33,6 +54,8 @@
       <categories>
           
           <category> python </category>
+          
+          <category> Ascend </category>
           
       </categories>
       
