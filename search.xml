@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>项目汇报2.0</title>
+      <link href="/2025/07/14/%E9%A1%B9%E7%9B%AE%E6%B1%87%E6%8A%A53.0/"/>
+      <url>/2025/07/14/%E9%A1%B9%E7%9B%AE%E6%B1%87%E6%8A%A53.0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="当前进展"><a href="#当前进展" class="headerlink" title="当前进展"></a>当前进展</h1><div class="table-container"><table><thead><tr><th></th><th>Fold 0</th><th>Fold 1</th><th>Fold 2</th><th>Fold 3</th><th>Fold 4</th><th>Fold 5</th><th>Fold 6</th><th>Fold 7</th><th>Fold 8</th><th>Fold 9</th></tr></thead><tbody><tr><td>now swin Acc</td><td>0.87337</td><td>0.82656</td><td>0.84383</td><td>0.81774</td><td>0.86543</td><td>0.81774</td><td>0.83036</td><td>0.90825</td><td>0.81047</td><td>0.81853</td></tr><tr><td>history best</td><td>0.87337</td><td>0.82656</td><td>0.84383</td><td>0.81774</td><td>0.86543</td><td>0.82231</td><td>0.85821</td><td>0.90825</td><td>0.81237</td><td>0.82231</td></tr><tr><td>is stft as q</td><td>no</td><td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr></tbody></table></div><h2 id="总ACC-84-29"><a href="#总ACC-84-29" class="headerlink" title="总ACC 84.29"></a>总ACC <code>84.29</code></h2><h2 id="MVF总-84-1"><a href="#MVF总-84-1" class="headerlink" title="MVF总 84.1"></a>MVF总 <code>84.1</code></h2><p>当前调参结果还有点粗，还能继续往细里面跑，可以换随机种子，多试参数，应该还能涨点。<br>当前路线基本对标<code>CVAN</code>，多尺度时空双分支，时频分支经过处理作为<code>windows attention</code> 的 <code>k v</code>，空间图由原始信号<code>stft</code>得到，后经过部份<code>resnet</code>的结构，每层中间拉出一个分支作为<code>attention</code>的<code>q</code>，增强信号表达，原始的<code>swintransformer</code>的<code>qkv</code>完全来自于基础信号，也就是单独的<code>时频</code>，后续可以考虑添加一部份残差连接。但现在并不是所有的折都采用了这种多分支，部份折还未来得及跑，至少从目前来看，只要添加了就能涨点，fold2涨了三个点，fold6涨了两个点，其他正在跑的目测至少是不会掉，所以是可以认为这种修改是有效的。</p><h1 id="下图为cvan架构图"><a href="#下图为cvan架构图" class="headerlink" title="下图为cvan架构图"></a>下图为cvan架构图</h1><p><img src="/img/cvan.png" alt="image.png"></p><p>结构比较类似cvan的结构，但swintransformer层砍成了两层，顶上的CNN块也比cvan少，其余结构比较类似</p><h2 id="关于MoE的进展"><a href="#关于MoE的进展" class="headerlink" title="关于MoE的进展"></a>关于MoE的进展</h2><p>几乎为零，首先，原先我谈到的MoE架构是一个大门控网络，也就是由一层swintransformer作为门控，门控的输出作为索引，作为专家的输入，专家模型也是swintransforemer，但问题在于，粗分类的效果不及预期，准确度算下来可能跟不做MOE的效果是一致的，或者用之前的多分类头的思路，先用二分类头做，再接五分类头，但这样的收益也是不及直接做五分类。我原本想的是，先做二分类，然后根据二分类后的结果，对应去原始的特征里面筛选，哪些是浅睡眠(W N1 N2)，哪些是深睡眠(N3 REM)，但发现这样无法实现，特征是筛不出来的。所以就回到了原点。如果按照上述那种门控的输出作为索引，计算量也上来了，但效果却并没有变好，所以还是选择搁置这个的添加。</p><h2 id="关于强化学习的进展"><a href="#关于强化学习的进展" class="headerlink" title="关于强化学习的进展"></a>关于强化学习的进展</h2><p>关于提到的DPO，可能可以作为后训练阶段的尝试，在完成了现阶段的训练，可以尝试用一个很小的学习率去监督微调，但我认为问题是DPO是直面人类偏好的奖励，一般是在LLM中，去优化偏好导向，但放在这边有个问题，没有所谓的<code>偏好数据对</code>,LLM中的数据大多是通过打分得到的，在这里不可能手动对数据打分，那么就只剩下两条路</p><h1 id="一-、基于某个基础模型作为监督模型去指导它的梯度方向"><a href="#一-、基于某个基础模型作为监督模型去指导它的梯度方向" class="headerlink" title="一 、基于某个基础模型作为监督模型去指导它的梯度方向"></a>一 、基于某个基础模型作为监督模型去指导它的梯度方向</h1><p>在这个基础上用基础模型的输出构成偏好对，但这有个问题，现在拿不到比我这里性能更好的基础模型，如果用效果更差的模型来监督，效果可能来的有限，即使有提升也可能像之前说的只是在随机参数上的一些进步，不是真正的有性能提升。</p><h1 id="二、直接合成"><a href="#二、直接合成" class="headerlink" title="二、直接合成"></a>二、直接合成</h1><p>这里我找到了一个专门用于时间序列领域DPO的强化学习库，链接如下</p><p><a href="https://nanodpo.readthedocs.io/en/stable/README.html">NanoDPO</a><br>这个框架可以直接合成偏好对，只不过是通过一些随机手段合成的，但也可以用监督模型来提供偏好<br>这个框架的效果目前还没有测试，等我调参结束后尝试一下</p><p>总之现在有一些问题，关于AAAI的创新点是否够？性能要做到什么水准够发？然后后续该怎么做？</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 项目 </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>项目周记录</title>
       <link href="/2025/06/28/%E9%A1%B9%E7%9B%AE%E5%91%A8%E8%AE%B0/"/>
       <url>/2025/06/28/%E9%A1%B9%E7%9B%AE%E5%91%A8%E8%AE%B0/</url>
