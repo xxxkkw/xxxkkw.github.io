@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>项目汇报8.0</title>
+      <link href="/2025/11/17/%E9%A1%B9%E7%9B%AE%E6%B1%87%E6%8A%A58.0/"/>
+      <url>/2025/11/17/%E9%A1%B9%E7%9B%AE%E6%B1%87%E6%8A%A58.0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Rebuttal"><a href="#Rebuttal" class="headerlink" title="Rebuttal"></a>Rebuttal</h1><p>为应对审稿人提出的一些问题以及需要补充的实验，这里总结一下所跑的实验结果以及一些点</p><h2 id="PPG数据分类结果"><a href="#PPG数据分类结果" class="headerlink" title="PPG数据分类结果"></a>PPG数据分类结果</h2><p>审稿人1与4均提及了我们只做了PSG数据的事情，所以特意找来了一个PPG的数据集，且在最近的顶会上有过相关工作的，所以也跑了一些实验，数据集叫<code>WESAD</code>，这是一个四分类的情绪数据集，结果如下</p><p>|        model          |   ACC  ｜ AUROC ｜ AUPRC ｜   F1   ｜ Kappa ｜<br>|   REBAR (ICLR 2024)   | 0.418 | 0.698 | 0.446 |    -   ｜   -   ｜<br>|        cVAN           | 0.6914 | 0.8550 | 0.7104 | 0.6641 | 0.5716 |<br>|       Resnet          | 0.7340 | 0.9025 | 0.8406 | 0.7503 | 0.6320 |<br>| HuBERT (NeurIPS 2025) | 0.775  | 0.82   |    -   |    -   ｜   -   ｜<br>|        S3Net          | 0.820 | 0.904   | 0.780 |  0.775  ｜0.743  ｜</p><p>另外需要说明，PPG测试模型删除了专家以及门控损失，相当于只有两层骨干结构，因为当前结构用不上我们为睡眠准备的专家以及门控损失，所以直接将门控的原本权重的输出换成了分类头，尽可能小的改动结构。</p><h2 id="对齐的各种改版"><a href="#对齐的各种改版" class="headerlink" title="对齐的各种改版"></a>对齐的各种改版</h2><ul><li>将我们的对齐直接替换成cVAN对齐</li><li>将对齐中的softmax加权替换成learnable pooling</li><li>直接展平，忽略原始时间前后文关系，加更强力的位置编码（这里需要额外去对比说明，我们保证了时间的上下文关系故更好）</li><li>不平方不加权</li></ul><p>|    version    |  ACC  |   F1  | Kappa |<br>|    cVAN-ALN   | 0.858 | 0.820 | 0.812 |<br>|  pooling-ALN  | 0.861 | 0.831 | 0.816 |<br>|    flat-ALN   | 0.847 | 0.813 | 0.790 |<br>| no-weight-ALN | 0.860 | 0.825 | 0.811 | </p><h2 id="参数量、计算复杂度与时间"><a href="#参数量、计算复杂度与时间" class="headerlink" title="参数量、计算复杂度与时间"></a>参数量、计算复杂度与时间</h2><p>这里采用Params(Million) GFlops两个参数作为指标，同时添加模型平均训练时间以及平均推理时间，共四个指标</p><p>| model | Params(Million) | GFlops  | train(ms) | eval(ms) |<br>|  MVF  |      39.51      |  11.06  |     -     |    -     |<br>| cVAN  |      7.58       |   0.47  |   157.01  |   66.72  |<br>| S3Net |      6.49       |   2.70  |    75.69  |   24.02  |</p><h2 id="分组实验"><a href="#分组实验" class="headerlink" title="分组实验"></a>分组实验</h2><div class="table-container"><table><thead><tr><th>分组实验</th><th>ACC</th><th>F1</th><th>Kappa</th><th>W</th><th>N1</th><th>N2</th><th>N3</th><th>REM</th></tr></thead><tbody><tr><td>W \ N1,N2 \ N3,REM</td><td>85.82</td><td>83.42</td><td>80.87</td><td>92.12</td><td>59.83</td><td>88.71</td><td>91.64</td><td>84.78</td></tr><tr><td>W,N1 \ N2,N3,REM</td><td>85.82</td><td>81.87</td><td>80.88</td><td>90.48</td><td>50.81</td><td>88.89</td><td>92.39</td><td>86.79</td></tr><tr><td>W,N1,N2,N3 \ REM</td><td>85.39</td><td>82.06</td><td>80.25</td><td>90.80</td><td>57.66</td><td>89.30</td><td>92.13</td><td>80.42</td></tr><tr><td>W,N2,N3,REM \N1</td><td>84.96</td><td>81.22</td><td>79.60</td><td>88.51</td><td>50.75</td><td>89.01</td><td>91.81</td><td>86.01</td></tr><tr><td>W \ N1,N2,N3 \ REM</td><td>85.17</td><td>82.16</td><td>80.13</td><td>89.15</td><td>54.37</td><td>88.07</td><td>91.64</td><td>87.56</td></tr></tbody></table></div><h2 id="跨数据集"><a href="#跨数据集" class="headerlink" title="跨数据集"></a>跨数据集</h2><div class="table-container"><table><thead><tr><th>Train</th><th>Test</th><th>Model</th><th>ACC</th><th>F1</th><th>Kappa</th><th>W</th><th>N1</th><th>N2</th><th>N3</th><th>REM</th></tr></thead><tbody><tr><td>ISRUC-S1</td><td>ISRUC-S3</td><td>StAGN</td><td>0.795</td><td>0.779</td><td></td><td>0.891</td><td>0.560</td><td>0.789</td><td>0.870</td><td>0.784</td></tr><tr><td>ISRUC-S1</td><td>ISRUC-S3</td><td>MVF-SleepNet</td><td>0.800</td><td>0.788</td><td></td><td>0.890</td><td>0.586</td><td>0.788</td><td>0.874</td><td>0.801</td></tr><tr><td>ISRUC-S1</td><td>ISRUC-S3</td><td>cVAN</td><td>0.826</td><td>0.807</td><td></td><td>0.916</td><td>0.578</td><td>0.814</td><td>0.889</td><td>0.843</td></tr><tr><td>ISRUC-S1</td><td>ISRUC-S3</td><td>S3net</td><td>0.834</td><td>0.816</td><td>0.830</td><td>0.922</td><td>0.588</td><td>0.827</td><td>0.891</td><td>0.851</td></tr></tbody></table></div>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 项目 </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>团队开发入门指南</title>
       <link href="/2025/11/07/%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"/>
       <url>/2025/11/07/%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</url>
